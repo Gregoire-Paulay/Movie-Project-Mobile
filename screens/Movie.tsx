@@ -15,16 +15,17 @@ type Props = NativeStackScreenProps<RootStackParamList, "Movie">;
 
 export default function Movie(props: Props): JSX.Element {
   const movie = props.route.params.data;
-  const image = { uri: movie["backdrop_path"] };
+  const image = { uri: movie["poster_path"] };
   const styles = useStyle();
 
   return (
     <View style={styles.container}>
-      <ImageBackground style={styles.picture} source={image}>
+      <ImageBackground style={styles.picture} source={image} resizeMode="cover">
         <View style={styles.textContainer}>
           <Text style={styles.title}>
             {movie["title"]} / {movie["vote_average"]} / {movie["release_date"]}
           </Text>
+          <Text style={styles.text}>{movie["overview"]}</Text>
         </View>
       </ImageBackground>
     </View>
@@ -42,22 +43,22 @@ const useStyle = () => {
       width: width,
       flex: 1,
       justifyContent: "center",
-      resizeMode: "cover",
     },
 
     textContainer: {
       backgroundColor: "#000000c0",
       justifyContent: "flex-end",
-      height: 300,
     },
     title: {
       fontSize: 20,
       marginVertical: 15,
       color: "white",
-      justifyContent: "center",
-      borderColor: "red",
-      borderWidth: 5,
-      alignItems: "center",
+      textAlign: "center",
+    },
+    text: {
+      color: "white",
+      marginBottom: 15,
+      fontSize: 16,
     },
   });
 
